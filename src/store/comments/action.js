@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const actions = {
   /*
    * action types
@@ -13,11 +11,17 @@ const actions = {
    * action creators
    */
 
-  getComments: (dispatch) => {
-    axios.get('http://localhost:3000/comments')
-      .then((res) => dispatch({type: actions.LOAD_COMMENTS_SUCCESS, payload: res}))
-      .catch((error) => dispatch({type: actions.LOAD_COMMENTS_ERROR, payload: error}));
-  },
+  getComments: () => ({
+    type: actions.LOAD_COMMENTS
+  }),
+  getCommentsSuccess: (comments) => ({
+    type: actions.LOAD_COMMENTS_SUCCESS,
+    comments
+  }),
+  getCommentsError: (error) => ({
+    type: actions.LOAD_COMMENTS_ERROR,
+    error
+  }),
 
 };
 

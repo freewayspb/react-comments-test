@@ -2,10 +2,11 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const env = require('yargs').argv.env; // use --env with webpack 2
+const env = require('yargs').argv.env;
 const pkg = require('./package.json');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-let libraryName = 'react-widget-library';
+let libraryName = 'comments-widget';
 
 let outputFile, mode;
 
@@ -20,7 +21,7 @@ if (env === 'build') {
 const config = {
   mode: mode,
   entry: __dirname + '/src/index.js',
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   output: {
     path: __dirname + '/public/lib',
     filename: outputFile,
@@ -34,8 +35,28 @@ const config = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ['file-loader']
+      },
+      {
+      test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader'
+        ]
       }
     ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({ template: "./public/index.html" }),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, '/public'),
+    compress: true,
+    hot : true,
+    port: 9000
   },
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styled from "styled-components";
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Author from './Author';
-import Rating from "./Rating";
+import { CommentImage, CommentBody, CommentContent, CommentFooter, CommentTitle, CommentWrapper, Counter } from './style';
+import Author from '../Author';
+import Rating from "../Rating";
 
 class Comment extends Component{
 
@@ -20,7 +20,7 @@ class Comment extends Component{
         <CommentTitle>{comment.title}</CommentTitle>
         <Rating stars={comment.rating || 0} />
         <CommentBody>
-
+          <CommentImage src={comment.attachments[0].variants.tutorial_image_square} />
           <CommentContent dangerouslySetInnerHTML={{__html: comment.body}} />
         </CommentBody>
         <CommentFooter>
@@ -36,43 +36,5 @@ class Comment extends Component{
     );
   }
 }
-
-const CommentBody = styled.div`
-  margin: 2rem 0;
-`;
-
-const Counter = styled.span`
-  margin-right: 1rem;
-`;
-
-const CommentFooter = styled.div`
-  margin-top: 2rem;
-  .svg-inline--fa {
-    color: #cbcbcb;
-  }
-`;
-
-const CommentContent = styled.div`
-  color: #686868;
-`;
-
-const CommentWrapper = styled.li`
-  background: #fff;
-  color: #686868;
-  margin: 0 30px 32px 30px;
-  padding: 30px;
-  font-size: 1em;
-`;
-
-const CommentTitle = styled.h3`
-    color: #686868;
-    margin-top: 40px;
-    font-size: 1.75rem;
-    font-weight: 400;
-    line-height: 2rem;
-    margin-bottom: 10px;
-    display: inline-block;
-    margin-right: 2rem;
-`;
 
 export default Comment;

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { Comments, CommentsWrapper, ShowMore } from './style';
 
-import Comment from './Comment';
+import Index from '../Comment';
+import commentsActions from '../../store/comments/action';
 
 class CommentsList extends Component{
 
@@ -15,9 +16,8 @@ class CommentsList extends Component{
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/comments')
-      .then(res => this.setState({comments: res.data.list}))
-      .catch(error => console.error(error));
+    const { getComments } = this.props;
+    getComments();
   }
 
   onLoadMore = (countMore) => {
@@ -25,22 +25,23 @@ class CommentsList extends Component{
     this.setState({ limitToShow: this.state.limitToShow + showMore });
   };
 
-  renderComments = () => {
-    const { comments, limitToShow } = this.state;
+  renderComments = (comments) => {
+    const { limitToShow } = this.state;
     return comments.slice(0, limitToShow).map( comment => {
-      return <Comment key={comment.uuid} comment={comment} />;
+      return <Index key={comment.uuid} comment={comment} />;
     });
   };
 
   render() {
-    const { comments, limitToShow } = this.state;
+    const { limitToShow } = this.state;
+    const { comments } = this.props;
 
     return (
       <CommentsWrapper>
         <Comments>
           {comments ? (
             <div>
-              {this.renderComments()}
+              {this.renderComments(comments)}
               <li>
                 <ShowMore
                   onClick={() => this.onLoadMore(5)}
@@ -59,42 +60,11 @@ class CommentsList extends Component{
   }
 }
 
-const CommentsWrapper = styled.div`
-  background: #f7f7f7;
-  padding: 30px 0;
-  font-family: Open Sans,'Helvetica Neue', Helvetica,sans-serif;
-`;
+const mapStateToProps = (state) => {
+  const { comments } = state.comments.toJS();
+  return { comments };
+};
 
-const ShowMore = styled.button`
-  background: transparent;
-  border: 5px solid #29db99;
-  border-radius: 100%;
-  font-size: 1rem;
-  color: #29db99;
-  cursor: pointer;
-  display: block;
-  width: 11rem;
-  height: 11rem;
-  margin: 0 auto;
-  &:hover {
-    background-color: #29db99;
-    color: #f7f7f7;
-  }
-  &:focus, &:active {
-    outline: none;
-  }
-  &:disabled {
-    background-color: #f7f7f7;
-    border-color: #cbcbcb;
-    color: #cbcbcb;
-    cursor: not-allowed;
-  }
-`;
+const {getComments} = commentsActions;
 
-const Comments = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-`;
-
-export default CommentsList;
+export default connect(mapStateToProps, {getComments})(CommentsList);
