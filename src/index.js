@@ -1,9 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const title = 'This is React.'
+import { CommentsList } from './Comments';
 
 ReactDOM.render(
-  <div>{title}</div>,
+  <>
+    test
+    <CommentsList />
+  </>,
   document.getElementById('app')
-)
+);
