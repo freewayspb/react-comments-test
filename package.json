@@ -9,8 +9,7 @@
     "cypress": "cypress open",
     "dev": "webpack --progress --colors --watch --env dev",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development --hot",
-    "server": "http-server -p 3000",
-    "test": "cypress run"
+    "server": "http-server -p 3000"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",

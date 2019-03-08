@@ -20,7 +20,10 @@ class Comment extends Component{
         <CommentTitle>{comment.title}</CommentTitle>
         <Rating stars={comment.rating || 0} />
         <CommentBody>
-          <CommentImage src={comment.attachments[0].variants.tutorial_image_square} />
+          {comment.author.avatar ?
+            <CommentImage src={comment.author.avatar.url} />
+            : null
+          }
           <CommentContent dangerouslySetInnerHTML={{__html: comment.body}} />
         </CommentBody>
         <CommentFooter>
