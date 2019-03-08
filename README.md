@@ -1,4 +1,4 @@
-# React Widget Library
+# React test task Widget Library
 
 ----
 React boilerplate for producing libraries of embeddable widgets. Based 99% upon work by [krasimir](https://github.com/krasimir):
