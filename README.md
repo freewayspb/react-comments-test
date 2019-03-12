@@ -18,7 +18,17 @@ React boilerplate for producing libraries of embeddable widgets. Based 99% upon 
 3. Development mode
   * Run `npm start` to generate a non-minified library and a watcher to get compilation on file change.
 4. Run the server
-  * Start a local server `npm run server` for data server running
+  * Start a local server `node server.js` for data server running
+
+## Local env
+1. `git clone https://github.com/freewayspb/react-comments-test.git && cd ./react-comments-test`
+
+2. Install the dependencies
+	* Run `npm install` or `npm i`
+3. Development mode
+  * Run `npm start` to generate a non-minified library and a watcher to get compilation on file change.
+4. Run the server
+  * Start a local server in separate terminal window `node server.js` for data server running
 
 ## Features
 
